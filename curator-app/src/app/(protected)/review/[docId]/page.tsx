@@ -23,9 +23,10 @@ async function getDocument(docId: string) {
 export default async function ReviewPage({
   params,
 }: {
-  params: { docId: string }
+  params: Promise<{ docId: string }>
 }) {
-  const document = await getDocument(params.docId)
+  const { docId } = await params
+  const document = await getDocument(docId)
 
   if (!document) {
     notFound()
@@ -40,7 +41,7 @@ export default async function ReviewPage({
         </p>
       </div>
 
-      <ChunkReviewer documentId={params.docId} />
+      <ChunkReviewer documentId={docId} />
     </div>
   )
 }
