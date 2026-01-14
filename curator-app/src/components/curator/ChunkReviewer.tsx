@@ -162,7 +162,7 @@ export default function ChunkReviewer({ documentId, onComplete }: Props) {
     }
   }
 
-  const updateMetadataField = (field: keyof ChunkAIMetadata, value: any) => {
+  const updateMetadataField = (field: keyof ChunkAIMetadata, value: unknown) => {
     setMetadataForm(prev => ({ ...prev, [field]: value }))
   }
 

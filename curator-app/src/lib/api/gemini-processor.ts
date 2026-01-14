@@ -3,14 +3,6 @@ import { FlowiseChunk } from '@/types'
 
 const genAI = new GoogleGenerativeAI(process.env.GOOGLE_API_KEY || '')
 
-/**
- * Get active document processor from settings
- */
-async function getActiveDocumentProcessor(): Promise<'flowise' | 'direct_gemini'> {
-  // For now, default to flowise if not configured
-  // This will be updated when settings are properly implemented
-  return 'direct_gemini'
-}
 
 /**
  * Process document directly with Gemini AI

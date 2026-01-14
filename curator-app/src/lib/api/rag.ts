@@ -21,7 +21,7 @@ async function getActiveProvider(): Promise<'gemini' | 'openai'> {
     return 'gemini'; // Default
   }
 
-  return (data.value as any).provider || 'gemini';
+  return (data.value as { provider: 'gemini' | 'openai' }).provider || 'gemini';
 }
 
 /**
@@ -60,7 +60,7 @@ Return ONLY a JSON array of KB names, e.g., ["fhir", "it_security"]`
     try {
       const kbs = JSON.parse(content.replace(/```json|```/g, '').trim());
       return Array.isArray(kbs) && kbs.length > 0 ? kbs : ['grants'];
-    } catch (e) {
+    } catch {
       return ['grants'];
     }
   }
@@ -170,7 +170,7 @@ export async function ragQuery(
   // Step 4: Flatten and rank results
   const allChunks = results.flat();
   const rankedChunks = allChunks
-    .sort((a: any, b: any) => b.similarity - a.similarity)
+    .sort((a: { similarity: number }, b: { similarity: number }) => b.similarity - a.similarity)
     .slice(0, maxChunks);
   
   return {
